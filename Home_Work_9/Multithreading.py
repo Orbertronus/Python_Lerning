@@ -19,21 +19,21 @@ class File:
     def close(self):
         self.file.close()
 
-# Задача, требующая много ресурсов ЦП (значительные вычисления)
+
 def encrypt_file(file_1: File):
     global encryption_counter
     start_timer = time.perf_counter()
-    print(f"Обработка файла из {file_1.file_path} в потоке {current_thread().name}")
-    # Просто имитация сложных вычислений
+    print(f"Processing file from {file_1.file_path} in thread {current_thread().name}")
+   
     _ = [i for i in range(100_000_000)]
     
     encryption_counter += time.perf_counter() - start_timer
 
-# Задача с блокировкой ввода/вывода (загрузка изображения по URL)
+
 def download_image(image_url, file_2: File):
     global download_counter
     start_timer = time.perf_counter()
-    print(f"Загрузка изображения по адресу {image_url} в потоке {current_thread().name}")
+    print(f"Downloading image from {image_url} in thread {current_thread().name}")
     response = requests.get(image_url)
     file_2.file.write(response.content)
    
@@ -61,6 +61,6 @@ if __name__ == "__main__":
         file_1.close()
         file_2.close()
         
-        print(f"Затраченное время на задачу с вычислениями: {encryption_counter}, задачу с вводом/выводом: {download_counter}, Всего: {total} секунд")
+        print(f"Time taken for encryption task: {encryption_counter}, I/O-bound task: {download_counter}, Total: {total} seconds")
     except Exception as e:
-        print(f"Произошла ошибка: {e}")
+        print(f"Error occurred: {e}")
